@@ -17,7 +17,7 @@ def convert_image_to_field(base64bin, p1, p2, p3, p4):
     @return: フィールド(文字列)
     """
     # base64→ndarray
-    img = base64_to_ndarry(base64bin)
+    img = base64_to_ndarray(base64bin)
 
     # ホモグラフィ変換
     h_img = homography(img, p1, p2, p3, p4, 120, 240)
@@ -82,7 +82,7 @@ def homography(img, p1, p2, p3, p4, width, height):
     return output
 
 
-def base64_to_ndarry(base64bin):
+def base64_to_ndarray(base64bin):
     """
     画像のbase64をndarrayに変換
     @param base64bin: base64
@@ -167,7 +167,7 @@ def extract_field_contours(base64bin):
     @return: フィールドの枠
     """
     # base64→ndarray
-    img = base64_to_ndarry(base64bin)
+    img = base64_to_ndarray(base64bin)
 
     # blockSizeは画像の半分で設定
     shape = img.shape
