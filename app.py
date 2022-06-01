@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 from puyoimage import convert_image_to_field, extract_field_contours
+from nazopuyo import solve
 
 app = Flask(__name__)
 
@@ -60,6 +61,20 @@ def fieldcontours():
         "contours": contours
     }
     return jsonify(res_json)
+
+
+@app.route("/findnazo", methods=["POST"])
+def findnazo():
+    field_str = request.json["fieldStr"]
+    tsumo_str = request.json["tsumoStr"]
+    q_type = request.json["qType"]
+    q_require = request.json["qRequire"]
+
+    tsumo_str = tsumo_str.replace("0", "")
+
+    answer_list = solve(field_str, tsumo_str, q_type, q_require)
+
+    return jsonify(answer_list)
 
 
 if __name__ == "__main__":

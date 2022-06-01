@@ -164,6 +164,14 @@ def _chain(field, check, connect_list, chain):
                 col = field[y][x]
                 col_set.add(col)
                 field[y][x] = "0"
+                if (y+1 < Y_SIZE-1) and field[y+1][x] == "9":
+                    field[y+1][x] = "0"
+                if (y-1 >= 0) and field[y-1][x] == "9":
+                    field[y-1][x] = "0"
+                if (x+1 < X_SIZE) and field[y][x+1] == "9":
+                    field[y][x+1] = "0"
+                if (x-1 >= 0) and field[y][x-1] == "9":
+                    field[y][x-1] = "0"
 
     connect_bonus = 0
     for con in connect_list:
@@ -184,3 +192,18 @@ def _chain(field, check, connect_list, chain):
 
     return field, score, chain, erase, color_num
 
+
+def is_empty_field(field):
+    for y in range(Y_SIZE):
+        for x in range(X_SIZE):
+            if field[y][x] != "0":
+                return False
+    return True
+
+
+def field_cotains_color(field, col):
+    for y in range(Y_SIZE):
+        for x in range(X_SIZE):
+            if field[y][x] == col:
+                return True
+    return False
